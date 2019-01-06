@@ -35,7 +35,7 @@ public class ErrorController {
 	public String error400(HttpServletRequest request, Model model) {
 		logger.info("error_code 400");
 		errorLog(request);
-		model.addAttribute("msg", "잘못된 요청입니다.");
+		model.addAttribute("msg", " 400, 잘못된 요청입니다.");
 		
 		return "error";
 	}
@@ -44,7 +44,7 @@ public class ErrorController {
 	public String error403(HttpServletRequest request, Model model) {
 		logger.info("error_code 403");
 		errorLog(request);
-		model.addAttribute("msg", "접근이 금지되었습니다.");
+		model.addAttribute("msg", "403, 접근이 금지되었습니다.");
 		
 		return "error";
 	}
@@ -53,7 +53,7 @@ public class ErrorController {
 	public String error404(HttpServletRequest request, Model model) {
 		logger.info("error_code 404");
 		errorLog(request);
-		model.addAttribute("msg", "존재하지 않는 페이지입니다.");
+		model.addAttribute("msg", "404, 존재하지 않는 페이지입니다.");
 		
 		return "error";
 	}
@@ -62,7 +62,7 @@ public class ErrorController {
 	public String error405(HttpServletRequest request, Model model) {
 		logger.info("error_code 405");
 		errorLog(request);
-		model.addAttribute("msg", "허용되지 않는 요청 방식입니다.");
+		model.addAttribute("msg", "405, 허용되지 않는 요청 방식입니다.");
 		
 		return "error";
 	}
@@ -71,7 +71,7 @@ public class ErrorController {
 	public String error500(HttpServletRequest request, Model model) {
 		logger.info("error_code 500");
 		errorLog(request);
-		model.addAttribute("msg", "서버에 오류가 발생하였습니다.");
+		model.addAttribute("msg", "500, 서버에 오류가 발생하였습니다.");
 		
 		return "error";
 	}

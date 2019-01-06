@@ -16,30 +16,30 @@ DROP TABLE IF EXISTS tbl_user;
 CREATE TABLE tbl_attach
 (
 	fullName varchar(255) NOT NULL,
-	bno int unsigned zerofill NOT NULL,
-	regdate datetime,
+	bno int(11) unsigned zerofill NOT NULL,
+	regdate datetime DEFAULT current_timestamp() ON UPDATE current_timestamp() NOT NULL,
 	PRIMARY KEY (fullName)
 );
 
 
 CREATE TABLE tbl_board
 (
-	bno int unsigned zerofill NOT NULL AUTO_INCREMENT,
+	bno int(11) unsigned zerofill NOT NULL AUTO_INCREMENT,
 	title varchar(255) NOT NULL,
 	content text NOT NULL,
 	writer varchar(30) NOT NULL,
-	regdate datetime NOT NULL,
-	viewcnt int unsigned,
-	replycnt int unsigned,
-	likecnt int unsigned,
+	regdate datetime DEFAULT current_timestamp() ON UPDATE current_timestamp() NOT NULL,
+	viewcnt int(11) unsigned DEFAULT 0,
+	replycnt int(11) unsigned DEFAULT 0,
+	likecnt int(11) unsigned DEFAULT 0,
 	PRIMARY KEY (bno)
 );
 
 
 CREATE TABLE tbl_like
 (
-	lno int unsigned zerofill NOT NULL AUTO_INCREMENT,
-	bno int unsigned zerofill NOT NULL,
+	lno int(11) unsigned NOT NULL AUTO_INCREMENT,
+	bno int(11) unsigned zerofill NOT NULL,
 	uid varchar(30) NOT NULL,
 	likecnt int unsigned DEFAULT 0,
 	PRIMARY KEY (lno)
@@ -48,12 +48,12 @@ CREATE TABLE tbl_like
 
 CREATE TABLE tbl_reply
 (
-	rno int unsigned zerofill NOT NULL AUTO_INCREMENT,
-	bno int unsigned zerofill NOT NULL,
+	rno int(11) unsigned zerofill NOT NULL AUTO_INCREMENT,
+	bno int(11) unsigned zerofill NOT NULL,
 	replywriter varchar(30) NOT NULL,
 	replytext varchar(300) NOT NULL,
-	regdate datetime,
-	updatedate datetime,
+	regdate datetime DEFAULT current_timestamp() NOT NULL,
+	updatedate datetime DEFAULT current_timestamp() ON UPDATE current_timestamp() NOT NULL,
 	PRIMARY KEY (rno)
 );
 
@@ -61,17 +61,19 @@ CREATE TABLE tbl_reply
 CREATE TABLE tbl_user
 (
 	uid varchar(30) NOT NULL,
-	pw varchar(50) NOT NULL,
+	-- SHA-256 암호화
+	pw varchar(255) NOT NULL COMMENT 'SHA-256 암호화',
 	name varchar(30) NOT NULL,
 	gender varchar(5) NOT NULL,
-	sessionkey varchar(255),
-	sessionlimit varchar(255),
-	thumbnail varchar(255),
-	email varchar(100) NOT NULL,
-	authkey varchar(255),
-	authstatus tinyint,
+	email varchar(150) NOT NULL,
+	joindate datetime DEFAULT current_timestamp() NOT NULL,
+	sessionkey varchar(255) DEFAULT 'none' NOT NULL,
+	sessionlimit timestamp DEFAULT current_timestamp() ON UPDATE current_timestamp() NOT NULL,
+	authkey varchar(255) DEFAULT 'NULL',
+	authstatus tinyint DEFAULT 0,
 	PRIMARY KEY (uid),
-	UNIQUE (uid)
+	UNIQUE (uid),
+	UNIQUE (email)
 );
 
 
