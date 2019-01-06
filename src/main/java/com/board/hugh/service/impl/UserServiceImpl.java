@@ -1,7 +1,11 @@
 package com.board.hugh.service.impl;
 
+import java.io.IOException;
+import java.io.Reader;
 import java.util.Date;
+import java.util.Properties;
 
+import org.apache.ibatis.io.Resources;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -16,6 +20,10 @@ import com.board.hugh.vo.UserVO;
 
 @Service
 public class UserServiceImpl implements UserService {
+	
+	private String resource = "conf/mail.properties";
+	private String mailadress;
+	
 	@Autowired
 	private UserDAO uDAO;
 	
@@ -25,6 +33,14 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public void create(UserVO uVO) throws Exception {
+		Properties properties = new Properties();
+		try {
+			Reader reader = Resources.getResourceAsReader(resource);
+			properties.load(reader);
+			mailadress = properties.getProperty("mail.username");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		uDAO.create(uVO);
 		
         String authkey = new TempKey().getKey(50, false);
@@ -45,7 +61,7 @@ public class UserServiceImpl implements UserService {
 							                .append(authkey)
 							                .append("' target='_blenk'>이메일 인증 확인</a>")
 							                .toString());
-        sendMail.setFrom("zhixian030@gmail.com", "admin");
+        sendMail.setFrom(mailadress, "admin");
         sendMail.setTo(uVO.getEmail());
         sendMail.send();
 	}

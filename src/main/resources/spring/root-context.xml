@@ -10,14 +10,22 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	
+	<context:property-placeholder
+		location="classpath:conf/db.properties,
+				classpath:conf/mail.properties"
+	ignore-unresolvable="true"/>
 	<!-- DB 연결 설정 -->
+	
+	<bean id="HikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="jdbcUrl" value="${db.url}" />
+		<property name="username" value="${db.username}" />
+		<property name="password" value="${db.password}" />
+		<property name="driverClassName" value="${db.ClassName}" />
+		<property name="autoCommit" value="${db.autoCommit}" />
+	</bean>
+	
 	<bean id="hikariDataSource" class="com.zaxxer.hikari.HikariDataSource">
-		<property name="driverClassName" value="org.mariadb.jdbc.Driver"/>
-		<property name="jdbcUrl" value="jdbc:mariadb://localhost:3306/bdi"/>
-		<property name="username" value="bdi"/>
-		<property name="password" value="bditest"/>
-		<property name="autoCommit" value="false"/>
+		<constructor-arg ref="HikariConfig" />
 	</bean>	
 	
 	<bean id="dataSourceProxy" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
@@ -60,11 +68,13 @@
 	<context:component-scan base-package="com.board.hugh" />
 
 	<!-- Mail 인증 관련 -->
+		
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.gmail.com" />
-		<property name="port" value="587" />
-		<property name="username" value="zhixian030@gmail.com" />
-		<property name="password" value="kdsb3020830!" />
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="host" value="${mail.host}" />
+		<property name="port" value="${mail.port}" />
+		<property name="username" value="${mail.username}"/>
+		<property name="password" value= "${mail.password}"/>
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.transport.protocol">smtp</prop>
