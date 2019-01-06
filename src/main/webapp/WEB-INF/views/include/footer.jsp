@@ -5,9 +5,9 @@
 			<img width="15px" class="img-circle" src="/resources/dist/img/gitIcon.png" alt="">
 			Chiheon Jo
 		</a><br/>
-		© 2018 Copyright: hugh.board.com
 	</h5>
-</div>
+	© 2018 Copyright: hugh.board.com 
+</div> 
 
 </body>
 </html>
