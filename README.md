@@ -132,7 +132,6 @@ CREATE TABLE tbl_like
 	lno int(11) unsigned NOT NULL AUTO_INCREMENT,
 	bno int(11) unsigned zerofill NOT NULL,
 	uid varchar(30) NOT NULL,
-	likecnt int unsigned DEFAULT 0,
 	PRIMARY KEY (lno)
 );
 
@@ -174,7 +173,7 @@ ALTER TABLE tbl_like
 
 <b>< ERD ></b>
 
-<img src="https://user-images.githubusercontent.com/39483738/50736306-5e6c4f80-11ff-11e9-934f-fe1b90e90bb5.PNG" width="700px;">
+<img src="https://user-images.githubusercontent.com/39483738/50820002-ed4baa00-136e-11e9-9bdd-1941be07bc2e.PNG" width="700px;">
 
 <hr>
 
