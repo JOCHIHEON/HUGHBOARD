@@ -198,7 +198,7 @@ ALTER TABLE tbl_like
           <li>비밀번호 4자리 이상 + 비밀번호 재입력 일치 시 -&raquo; 비밀번호 체크 표시 활성화</li>
           <li>---> jQeury .keyup() 사용, 매 입력시 최종 조건 모두 충족해야만 submit 버튼 활성화</li>
           <li>비밀번호 저장시 java.security.MessageDigest 클래스를 사용하여 SHA-256 암호화</li>
-          <li>---> PassEncryption 클래스로, encode 후 return</li>
+          <li>---> PassEncryption 클래스로, 비밀번호를 해시함수로 전환 후 digest로 encode해서 DB에 저장</li>
         </ul>
       <b><li>이메일 인증</li></b>
         <ul>
@@ -228,7 +228,7 @@ ALTER TABLE tbl_like
     <ol>
       <b><li>기본 기능</li></b>
         <ul>
-          <li>글 쓰기, 글 수정, 글 삭제, 글 보기</li>
+          <li>글 쓰기, 글 수정, 글 삭제, 글 보기, Pagination</li>
           <li>
             글 보기의 경우 Ajax를 이용해 페이지 이동없이 답글 달기 가능, 
             그 후 페이지 이동없이 게시글 정보(댓글 목록, 댓글수 등) reload
